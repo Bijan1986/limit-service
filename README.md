@@ -159,6 +159,16 @@ mkdir C:\DEV\practice\springboot\git-local-config-repo
 
 ```
 
+adding the values to the local file repository 
+
+```
+limits-service.properties
+
+limits-service.minimum=8
+limits-service.maximum=640
+
+```
+
 ## 6. Connect Spring cloud config server to the local git repository
 
 To make this happen, go to the spring cloud config server's application.properties and add the below mentioned details
@@ -188,7 +198,7 @@ public class SpringCloudConfigServerApplication {
 
 ```
 
-now start the application and check the below url
+now start the application and check the below URL
 
 > http://localhost:8888/limits-service/default
 
@@ -202,15 +212,14 @@ the output will be as follows
 "default"
 ],
 "label": null,
-"version": "6cc6b92704d394c9521770d238ce260e410c03b9",
+"version": "9b87924b3f142e3bd053e6d69d6da488608de12f",
 "state": null,
 "propertySources": [
 {
 "name": "file:///C:/DEV/practice/springboot/git-local-config-repo/file:C:\\DEV\\practice\\springboot\\git-local-config-repo\\limits-service.properties",
 "source": {
-"spring.config.import": "optional:configserver:http//localhost:8888",
-"limits-service.minimum": "4",
-"limits-service.maximum": "996"
+"limits-service.minimum": "8",
+"limits-service.maximum": "640"
 }
 }
 ]
