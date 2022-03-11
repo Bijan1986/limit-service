@@ -257,4 +257,98 @@ and we can add the below mentioned dependency as well
 ```
 
 
+## 8. Configuring profiles for different limits-service environment
 
+in this section we will learn about setting up multiple spring profiles based on the environments
+
+so first and foremost thing is to create multiple properties file in the local git repository 
+
+so the details are mentioned as below
+
+![different-env](images/env.png)
+
+now lets re-run the config server and see
+
+> for http://localhost:8888/limits-service/dev
+
+```
+{
+"name": "limits-service",
+"profiles": [
+"dev"
+],
+"label": null,
+"version": "9b87924b3f142e3bd053e6d69d6da488608de12f",
+"state": null,
+"propertySources": [
+{
+"name": "file:///C:/DEV/practice/springboot/git-local-config-repo/file:C:\\DEV\\practice\\springboot\\git-local-config-repo\\limits-service-dev.properties",
+"source": {
+"limits-service.minimum": "10",
+"limits-service.maximum": "668"
+}
+},
+{
+"name": "file:///C:/DEV/practice/springboot/git-local-config-repo/file:C:\\DEV\\practice\\springboot\\git-local-config-repo\\limits-service.properties",
+"source": {
+"limits-service.minimum": "8",
+"limits-service.maximum": "640"
+}
+}
+]
+}
+```
+
+> for http://localhost:8888/limits-service/qa
+
+```
+
+{
+"name": "limits-service",
+"profiles": [
+"qa"
+],
+"label": null,
+"version": "9b87924b3f142e3bd053e6d69d6da488608de12f",
+"state": null,
+"propertySources": [
+{
+"name": "file:///C:/DEV/practice/springboot/git-local-config-repo/file:C:\\DEV\\practice\\springboot\\git-local-config-repo\\limits-service-qa.properties",
+"source": {
+"limits-service.minimum": "9",
+"limits-service.maximum": "667"
+}
+},
+{
+"name": "file:///C:/DEV/practice/springboot/git-local-config-repo/file:C:\\DEV\\practice\\springboot\\git-local-config-repo\\limits-service.properties",
+"source": {
+"limits-service.minimum": "8",
+"limits-service.maximum": "640"
+}
+}
+]
+}
+
+```
+
+now we can got the the client and configure the application.properties like so
+
+```
+spring.profiles.active=dev
+spring.cloud.config.profile=dev
+
+```
+
+this will restart the limits service
+
+now lets go to the url and see
+
+> http://localhost:8080/limits
+
+```
+{
+"minimum": 10,
+"maximum": 668
+}
+
+```
